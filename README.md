@@ -5,7 +5,7 @@ This pipeline automates the process of generating a de novo assembly of long-rea
 ## Technical Considerations
 
 ### Minimum Read Length
-The assembler used for this pipeline, [Flye](https://github.com/fenderglass/Flye), has a minimum read length limit of 1000bp. For most data generated using Nanopore, this should be fine. However, if the majority of your reads are less than this length, this pipeline will not be useful for your analysis. In my experience, the noisy/long read assembler [Miniasm](https://github.com/lh3/miniasm) allows parameters to be set for reads shorterthan 1000bp (Find a helpful tutorial for this tool [here](https://faculty.washington.edu/sr320/?p=13602)).
+The assembler used for this pipeline, [Flye](https://github.com/fenderglass/Flye), has a minimum read length limit of 1000bp. For most data generated using Nanopore, this should be fine. However, if the majority of your reads are less than this length, this pipeline will not be useful for your analysis. In my experience, the noisy/long read assembler [Miniasm](https://github.com/lh3/miniasm) allows parameters to be set for reads shorter than 1000bp (Find a helpful tutorial for this tool [here](https://faculty.washington.edu/sr320/?p=13602)).
 
 ### Medaka Model
 
@@ -32,7 +32,7 @@ To install this pipeline, enter the following commands:
 # Clone the repository
 git clone https://github.com/rchapman2000/ont-de-novo-assembly.git
 
-# Create a conda environment usng the provided environment.yml file
+# Create a conda environment using the provided environment.yml file
 conda env create -f environment.yml
 
 # Activate the conda environment
@@ -49,7 +49,7 @@ cd ont-de-novo-assembly
 git pull
 
 # Activate the conda environment and use the environment.yml file to download updates
-conda ctivate ONT-DeNovoAssembly
+conda activate ONT-DeNovoAssembly
 conda env update --file environment.yml --prune
 ```
 
@@ -69,7 +69,7 @@ The pipeline also supports the following optional arguments:
 | --preGuppy5 | *None* | Flye handles data generated version of Guppy < 5.0 differently. Supply this parameter if your data was generated pre-Guppy 5.0 |
 | --threads | *int* | The number of CPU threads that can be use to run pipeline tools in parallel |
 
-To view the list of options from the commandline, use the following command:
+To view the list of options from the command line, use the following command:
 ```
-nextflow rn main.nf --help
+nextflow run main.nf --help
 ```
