@@ -46,6 +46,7 @@ include { Medaka_Correct } from "./modules.nf"
 include { Write_Summary } from "./modules.nf"
 
 // Checks the input parameter
+inDir = ''
 if (params.input == false) {
     // If the parameter is not set, notify the user and exit.
     println "ERROR: No input directory provided. Pipeline requires an input directory."
@@ -56,15 +57,26 @@ else if (!(file(params.input).isDirectory())) {
     println "ERROR: ${params.input} is not an existing directory."
     exit(1)
 }
+else {
+    // If the parameter is set, convert the value provided to a file type
+    // to get the absolute path, and then convert back to a string to be
+    // used in the pipeline.
+    inDir = file(params.input).toString()
+    println "Input Directory: ${inDir}"
+}
 
 // Create a channel for hte input files.
 inputFiles_ch = Channel
     // Pull from pairs of files (illumina fastq files denoted by having R1 or R2 in
     // the file name).
-    .fromPath("${params.input}*.fastq*")
-    // The .fromFilePairs() function spits out a list where the first 
-    // item is the base file name, and the second is a list of the files.
-    // This command creates a tuple with the base file name and two files.
+    .fromPath("${inDir}/*.fastq*")
+    // The .fromPath() function spits out each file, and we can use
+    // the build-in nextflow functionality to get the name of the file
+    // and place it into a tuple along with its corresponding file. That way
+    // we can use the file name in the pipeline to name any output files. The
+    // getSimpleName() function is used as opposed to getName(), as the
+    // getName() function only removes the last .extension and would
+    // cause issues if the fastqs were gzipped.
     .map { it -> [it.getSimpleName(), it]}
 
 // Checks the output parameter.
