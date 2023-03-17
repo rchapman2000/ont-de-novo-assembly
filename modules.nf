@@ -84,7 +84,7 @@ process Porechop_Trimming {
     """
     #!/bin/bash
 
-    raw_reads=\$((\$(gunzip -c ${reads} | wc -l)/4))
+    raw_reads=\$((\$(zcat -f ${reads} | wc -l)/4))
 
     avg_raw_read_len=\$(bioawk -c fastx '{ totalBases += length(\$seq); totalReads++ } END{ print totalBases/totalReads }' ${reads})
 
