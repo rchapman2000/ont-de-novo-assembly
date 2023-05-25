@@ -65,6 +65,9 @@ The pipeline also supports the following optional arguments:
 
 | Option | Type | Description |
 |---|---|---|
+| --trimONTAdapters | *None* | Enables ONT Adapter/Barcode trimming using Porechop [Default = off] |
+| --minReadLen | *int* | If supplied, the pipeline will perform length filtering using Chopper excluding reads less than this size [Default = off] |
+| --maxReadLen | *int* | If supplied, the pipeline will perform length filtering using Chopper excluding reads larger than this size [Default = off] |
 | --medakaBatchSize | *int* | Medaka uses a lot of GPU memory, and if you're assembly is large enough it may cause Medaka to crash. Reducing the batch size will help solve this issue. [Default = 100] |
 | --preGuppy5 | *None* | Flye handles data generated version of Guppy < 5.0 differently. Supply this parameter if your data was generated pre-Guppy 5.0 |
 | --threads | *int* | The number of CPU threads that can be use to run pipeline tools in parallel |
